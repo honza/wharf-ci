@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'wharfci.views.home', name='home'),
     # url(r'^wharfci/', include('wharfci.foo.urls')),
 
+    url(r'^webhook/(?P<project_pk>[0-9])$', 'web.views.webhook_handler',),
     url(r'^admin/', include(admin.site.urls)),
 )
