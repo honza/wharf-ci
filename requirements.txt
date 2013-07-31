@@ -1,3 +1,4 @@
 Django==1.5.1
 GitPython==0.3.2.RC1
 django-celery==3.0.21
+South==0.8.1
