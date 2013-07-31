@@ -15,10 +15,10 @@ BUILD_STATUS_CHOICES = (
 class Project(models.Model):
     name = models.CharField(max_length=255)
     created = models.DateTimeField(default=datetime.utcnow)
-    created_by = models.Foreign(User)
+    created_by = models.ForeignKey(User)
     repository = models.CharField(max_length=255)
-    build_command = models.TexField()
-    dockerfile = models.TexField()
+    build_command = models.TextField()
+    dockerfile = models.TextField()
     private = models.BooleanField(default=False)
 
 
