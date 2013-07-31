@@ -32,6 +32,7 @@ class Build(models.Model):
     pusher = models.ForeignKey(Pusher)
     created = models.DateTimeField(default=datetime.utcnow)
     git_sha = models.CharField(max_length=40)
+    git_timestamp = models.DateTimeField()
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
 
