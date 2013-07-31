@@ -39,11 +39,13 @@ class Build(models.Model):
     created = models.DateTimeField(default=datetime.utcnow)
     commit_sha = models.CharField(max_length=40)
     commit_timestamp = models.DateTimeField()
+    host = models.CharField(max_length=255)
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
+    result = models.TextField(default='')
 
     def __unicode__(self):
-        return self.git_sha
+        return self.commit_sha
 
     @property
     def is_success(self):
