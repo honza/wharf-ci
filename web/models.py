@@ -43,7 +43,7 @@ class Build(models.Model):
                               default='q')
 
     def __unicode__(self):
-        return self.git_sha
+        return self.commit_sha
 
     @property
     def is_success(self):
