@@ -1,0 +1,83 @@
+{
+    "after": "c8573e6d5de9a6e2729c8c98ea4bfc60278d3249", 
+    "before": "715f48a211d0a5933c4f010f3c0e1767a6d5c861", 
+    "commits": [
+        {
+            "added": [], 
+            "author": {
+                "email": "me@honza.ca", 
+                "name": "Honza Pokorny", 
+                "username": "honza"
+            }, 
+            "committer": {
+                "email": "me@honza.ca", 
+                "name": "Honza Pokorny", 
+                "username": "honza"
+            }, 
+            "distinct": true, 
+            "id": "c8573e6d5de9a6e2729c8c98ea4bfc60278d3249", 
+            "message": "Add python git wrapper", 
+            "modified": [
+                "requirements.txt"
+            ], 
+            "removed": [], 
+            "timestamp": "2013-07-31T11:26:07-07:00", 
+            "url": "https://github.com/honza/wharf-ci/commit/c8573e6d5de9a6e2729c8c98ea4bfc60278d3249"
+        }
+    ], 
+    "compare": "https://github.com/honza/wharf-ci/compare/715f48a211d0...c8573e6d5de9", 
+    "created": false, 
+    "deleted": false, 
+    "forced": false, 
+    "head_commit": {
+        "added": [], 
+        "author": {
+            "email": "me@honza.ca", 
+            "name": "Honza Pokorny", 
+            "username": "honza"
+        }, 
+        "committer": {
+            "email": "me@honza.ca", 
+            "name": "Honza Pokorny", 
+            "username": "honza"
+        }, 
+        "distinct": true, 
+        "id": "c8573e6d5de9a6e2729c8c98ea4bfc60278d3249", 
+        "message": "Add python git wrapper", 
+        "modified": [
+            "requirements.txt"
+        ], 
+        "removed": [], 
+        "timestamp": "2013-07-31T11:26:07-07:00", 
+        "url": "https://github.com/honza/wharf-ci/commit/c8573e6d5de9a6e2729c8c98ea4bfc60278d3249"
+    }, 
+    "pusher": {
+        "email": "me@honza.ca", 
+        "name": "honza"
+    }, 
+    "ref": "refs/heads/master", 
+    "repository": {
+        "created_at": 1375293923, 
+        "description": "Jenkins-like, docker-based, GitHub-backed build system", 
+        "fork": false, 
+        "forks": 0, 
+        "has_downloads": true, 
+        "has_issues": true, 
+        "has_wiki": true, 
+        "homepage": "", 
+        "id": 11797488, 
+        "master_branch": "master", 
+        "name": "wharf-ci", 
+        "open_issues": 0, 
+        "owner": {
+            "email": "me@honza.ca", 
+            "name": "honza"
+        }, 
+        "private": false, 
+        "pushed_at": 1375295170, 
+        "size": 38, 
+        "stargazers": 0, 
+        "url": "https://github.com/honza/wharf-ci", 
+        "watchers": 0
+    }
+}
