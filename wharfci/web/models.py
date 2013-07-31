@@ -21,10 +21,16 @@ class Project(models.Model):
     dockerfile = models.TextField()
     private = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Pusher(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Build(models.Model):
@@ -35,6 +41,9 @@ class Build(models.Model):
     git_timestamp = models.DateTimeField()
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
+
+    def __unicode__(self):
+        return self.git_sha
 
     @property
     def is_success(self):
