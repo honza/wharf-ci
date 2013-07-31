@@ -15,7 +15,7 @@ def webhook_handler(request, project_pk):
     payload = request.POST.get('payload')
 
     pusher_json = payload.get('pusher')
-    pusher = Pusher.objects.get_or_create(
+    pusher, _ = Pusher.objects.get_or_create(
         email=pusher_json.get('email'),
         name=pusher_json.get('name'))
 
