@@ -1,7 +1,7 @@
 wharf-ci
 ========
 
-Jenkins-like, docker-based, GitHub-backed build system
+Jenkins-like, docker-based, DVCS-backed build system
 
 How it works
 ------------
