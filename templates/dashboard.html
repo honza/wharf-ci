@@ -1,8 +1,81 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}: Projects{% endblock %}
 {% block content %}
+<div id="dialog-create-project" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans 'Create Project' %}</h4>
+            </div>
+            <div class="modal-body">
+                <form id="create-project" method="POST" action="{% url 'web.views.create_project' %}">
+                    {% csrf_token %}
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" placeholder="{% trans 'project name' %}" autofocus="true">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="repository" placeholder="{% trans 'repository (i.e. https://github.com/honza/wharf-ci)' %}">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="build_command" placeholder="{% trans 'build command (i.e. test.sh)' %}">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a id="btn-create-project" href="#" class="btn btn-primary">{% trans 'Create' %}</a>
+                <a href="#" class="btn btn-default" data-dismiss="modal">{% trans 'Cancel' %}</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="container">
-    <h1>Projects</h1>
+    <div class="row">
+        <div class="col-lg-3">
+            <div id="project-list" class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans 'Projects' %} <span class="pull-right"><a href="#dialog-create-project" data-toggle="modal" class="btn btn-mini btn-primary">{% trans 'Create' %}</a></h3>
+                </div>
+                {% if projects %}
+                <ul class="nav nav-pills nav-stacked">
+                    {% for project in projects %}
+                    <li><a href="#" class="project" data-url="{% url 'web.views.project_details' project_id=project.id %}">{{project.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="lead"><em>{% trans 'No projects' %}</em></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div id="project" class="panel">
+                <div class="lead"><em>{% trans 'Select or create a project on the left' %}</em></div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $("#btn-create-project").click(function() {
+        $("form#create-project").submit();
+        return false;
+    });
+    $("a.project").click(function() {
+        var url = this.getAttribute('data-url');
+        var parent = $(this).parent();
+        $("a.project").each(function() {
+            var p = $(this).parent();
+            p.removeClass('active');
+        });
+        $.get(url, function(data) {
+            $("div#project").html(data);
+            $(parent).addClass('active');
+            return false;
+        });
+    });
+</script>
 {% endblock %}

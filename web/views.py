@@ -1,11 +1,15 @@
 import json
 from datetime import datetime, timedelta
 
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, redirect
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.translation import ugettext as _
 
 from models import Project, Build, Pusher
 from tasks import run_build
@@ -66,6 +70,36 @@ def webhook_handler(request, project_pk):
 
 @login_required
 def dashboard(request):
-    ctx = {}
+    ctx = {
+        'projects': Project.objects.filter(
+            created_by=request.user).order_by('name'),
+    }
     return render_to_response('dashboard.html', ctx,
         context_instance=RequestContext(request))
+
+@login_required
+@require_http_methods(['POST'])
+def create_project(request):
+    name = request.POST.get('name')
+    repository = request.POST.get('repository')
+    build_command = request.POST.get('build_command')
+    # validate
+    if not name or not repository or not build_command:
+        messages.error(request, _('You must specify a name, repository,'
+            ' and build command.'))
+    else:
+        # create project
+        project = Project(name=name, repository=repository,
+            build_command=build_command, created_by=request.user)
+        project.save()
+        messages.success(request, '{} {}'.format(name, _('project created...')))
+    return redirect(reverse('dashboard'))
+
+@login_required
+def project_details(request, project_id=None):
+    ctx = {
+        'project': Project.objects.get(id=project_id),
+    }
+    return render_to_response('projects/_project.html', ctx,
+        context_instance=RequestContext(request))
+

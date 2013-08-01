@@ -53,3 +53,6 @@ div#login {
     border-top-color: #9e9e9e !important;
     border-bottom-color: #9e9e9e !important;
 }
+div#project-list, div#project {
+    min-height: 500px;
+}
