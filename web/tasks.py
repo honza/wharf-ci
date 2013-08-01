@@ -44,7 +44,7 @@ def run_build(build):
     if not os.path.exists(main_repo_path):
 
         # assert project repo present
-        os.path.makedirs(project_dir)
+        os.makedirs(project_dir)
 
         # clone repo
         repo = Repo.clone_from(project.repository, main_repo_path)
@@ -76,10 +76,10 @@ def run_build(build):
     container_id = container.get('Id')
 
     c.start(container_id)
-    c.wait(container_id)
+    return_code = c.wait(container_id)
 
     out = c.logs(container_id)
     build.result = out
+    build.return_code = return_code
     build.save()
 
-    # TODO: Update build status based on exit code

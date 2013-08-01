@@ -3,3 +3,4 @@
 *.un~
 *.swp
 dev.db
+repositories/*
