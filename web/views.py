@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
 
 from models import Project, Build, Pusher
 from tasks import run_build
@@ -63,3 +64,8 @@ def webhook_handler(request, project_pk):
 
     return HttpResponse()
 
+@login_required
+def dashboard(request):
+    ctx = {}
+    return render_to_response('dashboard.html', ctx,
+        context_instance=RequestContext(request))

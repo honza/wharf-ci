@@ -17,7 +17,6 @@ try:
 except ImportError:
     import json
 
-DANGER = 40
 @require_http_methods(["GET", "POST"])
 def login(request):
     if request.method == 'POST':
@@ -27,11 +26,11 @@ def login(request):
         if user is not None:
             if user.is_active:
                 login_user(request, user)
-                return redirect(reverse('index'))
+                return redirect(reverse('dashboard'))
             else:
-                messages.add_message(request, DANGER, _('Your account is disabled.  Make sure you have activated your account.'))
+                messages.error(request, _('Your account is disabled.  Make sure you have activated your account.'))
         else:
-            messages.add_message(request, DANGER, _('Invalid username/password'))
+            messages.error(request, _('Invalid username/password'))
     return render_to_response('accounts/login.html',
         context_instance=RequestContext(request))
 
