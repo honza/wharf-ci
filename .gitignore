@@ -4,3 +4,4 @@
 *.swp
 dev.db
 repositories/*
+.repositories/*
