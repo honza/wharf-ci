@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 
 BUILD_STATUS_CHOICES = (
@@ -14,6 +15,7 @@ BUILD_STATUS_CHOICES = (
 
 class Project(models.Model):
     name = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255, blank=True)
     created = models.DateTimeField(default=datetime.utcnow)
     created_by = models.ForeignKey(User)
     repository = models.CharField(max_length=255)
@@ -23,6 +25,12 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        super(Project, self).save(*args, **kwargs)
 
 
 class Pusher(models.Model):
