@@ -10,7 +10,7 @@ div#billboard {
     top: 150px;
     width: 50%;
     border: 1px solid #c1c1c1;
-    padding: 20px;
+    padding: 20px 20px 30px 20px;
     margin: 0 auto;
     background-color: #efefef;
     border-radius: 10px;
