@@ -56,3 +56,6 @@ div#login {
 div#project-list, div#project {
     min-height: 500px;
 }
+div.tab-pane {
+    padding-top: 10px;
+}

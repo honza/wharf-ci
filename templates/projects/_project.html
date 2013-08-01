@@ -1,10 +1,28 @@
 {% load i18n %}
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#builds">{% trans 'Builds' %}</a></li>
-    <li><a href="#history">{% trans 'History' %}</a></li>
+<ul id="project-tabs" class="nav nav-tabs">
+    <li class="active"><a href="#summary" data-toggle="tab">{% trans 'Summary' %}</a></li>
+    <li><a href="#builds" data-toggle="tab">{% trans 'Builds' %}</a></li>
 </ul>
 <div class="tab-content">
-    <div id="builds" class="tab-pane active"></div>
-    <div id="history" class="tab-pane"></div>
+    <div id="#summary" class="tab-pane active">
+        <div>
+            <h3>{{project.name}}</h3>
+        </div>
+    </div>
+    <div id="builds" class="tab-pane">
+        <div>
+            {% if builds %}
+            {% for build in builds %}
+
+            {% endfor %}
+            {% else %}
+            <div class="lead"><em>{% trans 'There are no builds for this project.' %}</em></div>
+            {% endif %}
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+    })
+</script>
