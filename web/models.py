@@ -51,6 +51,7 @@ class Build(models.Model):
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
     result = models.TextField(default='')
+    return_code = models.IntegerField(default=-1, null=True)
 
     def __unicode__(self):
         return self.commit_sha
