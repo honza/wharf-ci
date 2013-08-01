@@ -14,6 +14,25 @@ REPOSITORY_DIR = getattr(settings, 'REPOSITORY_DIR', None)
 
 @task
 def run_build(build):
+    """
+    The REPOSITORY_DIR will contain a directory for each Project
+    instance.
+
+    Each Project instance directory will have a directory called "clone"
+    which is the master clone.  Then, each time a build is queued, we
+    create a local clone from that repository named after the current
+    build's commit sha.
+
+    REPOSITORY_DIR/
+        django/
+            clone/
+            a18bc/
+            .../
+
+    Once the local clone is created, we build the docker image, create
+    the container and run the tests.
+    """
+
     project = build.project
 
     # docker client
