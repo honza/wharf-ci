@@ -1,7 +1,8 @@
 import os
+from django.contrib.messages import constants as messages
 # Django settings for wharfci project.
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '../')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -11,6 +12,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 DATABASES = {
     'default': {
@@ -66,15 +68,17 @@ MEDIA_URL = ''
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = ''
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -111,9 +115,7 @@ ROOT_URLCONF = 'wharfci.urls'
 WSGI_APPLICATION = 'wharfci.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -127,6 +129,7 @@ INSTALLED_APPS = (
     'djcelery',
     'south',
     'web',
+    'accounts',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -163,3 +166,8 @@ djcelery.setup_loader()
 
 REPOSITORY_DIR = os.path.normpath(
     os.path.join(PROJECT_ROOT, '../repositories'))
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

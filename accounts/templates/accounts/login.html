@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}: Login{% endblock %}
+{% block content %}
+<div id="login">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" name="username" placeholder="{% trans 'username' %}" autofocus="true">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="{% trans 'password' %}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-large btn-default">{% trans 'Login' %}</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

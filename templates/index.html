@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="billboard">
+    <div id="title">Wharf-CI</div>
+    <div id="description">
+        <a href="http://docker.io" target="_docker">Docker</a> powered continuous integration testing.
+    </div>
+    <div id="buttons">
+        <a href="{% url 'accounts.views.login' %}" class="btn btn-large btn-primary">{% trans 'Signup / Login' %}</a>
+    </div>
+</div>
+{% endblock %}

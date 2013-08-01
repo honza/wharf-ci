@@ -1,0 +1,43 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wharf CI {% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="{{STATIC_URL}}css/app.css" rel="stylesheet">
+    <head>
+    <body>
+        <div id="messages" {% if not messages %}class="hide"{% endif %}>
+          {% if messages %}
+          {% for message in messages %}
+          <div class="alert {% if message.tags %}alert-{{message.tags}}{% endif %}">
+            <a class="close" href="#" data-dismiss="alert">&times;</a>
+            <p>{{message}}<p>
+            </div>
+            {% endfor %}
+            <script type="text/javascript">
+            $(".alert").delay(5000).fadeOut();
+            </script>
+            {% endif %}
+        </div>
+        <div class="navbar navbar-fixed-top">
+            <a class="navbar-brand" href="{% url 'wharfci.views.index' %}">wharf-ci</a>
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-nav pull-right">
+                <li class="pull-right">
+                    <a id="menu-dropdown" href="#" class="navbar-link dropdown-toggle" role="button" data-toggle="dropdown">{{ user.username }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu-dropdown">
+                        <li><a href="{% url 'accounts.views.logout' %}">{% trans 'logout' %}</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+        {% block content %}{% endblock %}
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    </body>
+</html>
+
