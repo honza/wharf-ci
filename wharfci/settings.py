@@ -1,4 +1,7 @@
+import os
 # Django settings for wharfci project.
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -157,3 +160,6 @@ LOGGING = {
 
 import djcelery
 djcelery.setup_loader()
+
+REPOSITORY_DIR = os.path.normpath(
+    os.path.join(PROJECT_ROOT, '../repositories'))
