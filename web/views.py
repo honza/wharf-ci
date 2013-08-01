@@ -40,9 +40,9 @@ def webhook_handler(request, project_pk):
     payload = json.loads(request.POST.get('payload'))
 
     pusher_json = payload.get('pusher')
-    pusher, _ = Pusher.objects.get_or_create(
+    pusher = Pusher.objects.get_or_create(
         email=pusher_json.get('email'),
-        name=pusher_json.get('name'))
+        name=pusher_json.get('name'))[0]
 
     after = payload.get('after')
     latest_commit = None
@@ -68,6 +68,7 @@ def webhook_handler(request, project_pk):
 
     return HttpResponse()
 
+
 @login_required
 def dashboard(request):
     ctx = {
@@ -75,7 +76,8 @@ def dashboard(request):
             created_by=request.user).order_by('name'),
     }
     return render_to_response('dashboard.html', ctx,
-        context_instance=RequestContext(request))
+                              context_instance=RequestContext(request))
+
 
 @login_required
 @require_http_methods(['POST'])
@@ -86,14 +88,16 @@ def create_project(request):
     # validate
     if not name or not repository or not build_command:
         messages.error(request, _('You must specify a name, repository,'
-            ' and build command.'))
+                                  ' and build command.'))
     else:
         # create project
         project = Project(name=name, repository=repository,
-            build_command=build_command, created_by=request.user)
+                          build_command=build_command, created_by=request.user)
         project.save()
-        messages.success(request, '{} {}'.format(name, _('project created...')))
+        messages.success(request,
+                         '{} {}'.format(name, _('project created...')))
     return redirect(reverse('dashboard'))
+
 
 @login_required
 def project_details(request, project_id=None):
@@ -101,5 +105,4 @@ def project_details(request, project_id=None):
         'project': Project.objects.get(id=project_id),
     }
     return render_to_response('projects/_project.html', ctx,
-        context_instance=RequestContext(request))
-
+                              context_instance=RequestContext(request))
