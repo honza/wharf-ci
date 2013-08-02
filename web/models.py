@@ -47,7 +47,7 @@ class Build(models.Model):
     created = models.DateTimeField(default=datetime.utcnow)
     commit_sha = models.CharField(max_length=40)
     commit_timestamp = models.DateTimeField()
-    host = models.CharField(max_length=255)
+    host = models.CharField(max_length=255, default='localhost')
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
     result = models.TextField(default='')

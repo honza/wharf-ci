@@ -5,3 +5,4 @@
 dev.db
 repositories/*
 .repositories/*
+.vagrant/*
