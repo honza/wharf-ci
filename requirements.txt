@@ -3,3 +3,4 @@ GitPython==0.3.2.RC1
 django-celery==3.0.21
 South==0.8.1
 -e git+https://github.com/ehazlett/docker-py.git@master#egg=docker_py
+redis==2.7.6
