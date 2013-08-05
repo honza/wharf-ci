@@ -13,11 +13,35 @@
     <div id="builds" class="tab-pane">
         <div>
             {% if builds %}
-            {% for build in builds %}
+            <table class="table">
+                {% for build in builds %}
+                <tr>
+                    <td>
+                            {% if build.status == "q" %}
+                                <span class="label">
+                            {% elif build.status == "s" %}
+                                <span class="label label-success">
+                            {% elif build.status == "f" %}
+                                <span class="label label-danger">
+                            {% elif build.status == "b" %}
+                                <span class="label label-info">
+                            {% elif build.status == "a" %}
+                                <span class="label label-warning">
+                            {% endif %}
+                                {{ build.get_status_display }}
+                            </span>
 
-            {% endfor %}
+                    </td>
+                    <td>
+                            {{ build.commit_sha }}
+                    </td>
+                    <td>
+                            {{ build.created }}
+                    <td>
+                    </tale>
+                {% endfor %}
             {% else %}
-            <div class="lead"><em>{% trans 'There are no builds for this project.' %}</em></div>
+                <div class="lead"><em>{% trans 'There are no builds for this project.' %}</em></div>
             {% endif %}
         </div>
     </div>

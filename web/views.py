@@ -101,8 +101,10 @@ def create_project(request):
 
 @login_required
 def project_details(request, project_id=None):
+    project = Project.objects.get(pk=project_id)
     ctx = {
-        'project': Project.objects.get(id=project_id),
+        'project': project,
+        'builds': project.build_set.all().order_by('-created')
     }
     return render_to_response('projects/_project.html', ctx,
                               context_instance=RequestContext(request))
