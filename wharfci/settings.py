@@ -169,6 +169,8 @@ djcelery.setup_loader()
 REPOSITORY_DIR = os.path.normpath(
     os.path.join(PROJECT_ROOT, '.repositories'))
 
+DEFAULT_DOCKER_HOST = 'http://localhost:4243'
+
 try:
     from local_settings import *
 except ImportError:

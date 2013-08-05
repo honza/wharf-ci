@@ -1,7 +1,12 @@
 from datetime import datetime
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+
+
+DEFAULT_DOCKER_HOST = getattr(settings, 'DEFAULT_DOCKER_HOST',
+                              'http://localhost:4243')
 
 
 BUILD_STATUS_CHOICES = (
@@ -47,7 +52,7 @@ class Build(models.Model):
     created = models.DateTimeField(default=datetime.utcnow)
     commit_sha = models.CharField(max_length=40)
     commit_timestamp = models.DateTimeField()
-    host = models.CharField(max_length=255, default='localhost')
+    host = models.CharField(max_length=255, default=DEFAULT_DOCKER_HOST)
     status = models.CharField(max_length=1, choices=BUILD_STATUS_CHOICES,
                               default='q')
     result = models.TextField(default='')
