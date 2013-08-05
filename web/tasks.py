@@ -12,8 +12,7 @@ logger = logging.getLogger(__name__)
 REPOSITORY_DIR = getattr(settings, 'REPOSITORY_DIR', None)
 
 
-@task
-def run_build(build):
+def _run_build(build):
     """
     The REPOSITORY_DIR will contain a directory for each Project
     instance.
@@ -57,9 +56,13 @@ def run_build(build):
     # build_path is a local clone of the project and it's named after the
     # current build's commit sha
     build_path = os.path.join(project_dir, build.commit_sha)
-    repo = Repo.clone_from(main_repo_path, build_path)
-    g = repo.git
 
+    if not os.path.exists(build_path):
+        repo = Repo.clone_from(main_repo_path, build_path)
+    else:
+        repo = Repo(build_path)
+
+    g = repo.git
     g.checkout(build.commit_sha)
 
     image_name = ':'.join([project.slug, build.commit_sha])
@@ -80,6 +83,11 @@ def run_build(build):
 
     out = c.logs(container_id)
     build.result = out
+
     build.return_code = return_code
     build.save()
 
+
+@task
+def run_build(build):
+    return _run_build(build)
